@@ -1,0 +1,11 @@
+.header {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #cdcdcd;
+    background-image: url(../../assets/images/header.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}

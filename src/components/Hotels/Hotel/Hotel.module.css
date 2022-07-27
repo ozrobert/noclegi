@@ -1,0 +1,66 @@
+.hotel {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: hsla(0, 0%, 80%, 0.35);
+    border-bottom: 2px solid #cdcdcd;
+}
+
+.hotelImg {
+    border-radius: 8px;
+}
+
+.flexContainer {
+    display: flex;
+}
+
+.hotelImgContainer {
+    padding: 10px;
+    flex: 1;
+}
+
+.hotelInfoContainer {
+    flex: 1;
+    padding: 10px;
+}
+
+.hotelDescContainer {
+    padding: 10px;
+}
+
+.button {
+    display: block;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    width: min(100%, 200px);
+    margin-left: auto;
+    background-color: rgb(79, 79, 214);
+}
+
+.title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+.rate {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-block: 0 10px;
+    text-align: right;
+}
+
+.badge {
+    font-weight: bold;
+    font-size: 0.8rem;
+    background-color: #ccc;
+    border-radius: 8px;
+    padding: 3px 6px;
+}
+
+.desc {
+    margin-block: 0;
+    font-size: 0.95rem;
+    color: #333;
+}

@@ -1,0 +1,10 @@
+.button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: inset -10px 0 5px -5px #047413;
+}
