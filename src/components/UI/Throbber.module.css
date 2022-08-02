@@ -1,0 +1,15 @@
+.throbber {
+    margin-inline: auto;
+    aspect-ratio: 1/1;
+    width: 75px;
+    border-radius: 50%;
+    border: 5px solid #dedede;
+    border-top-color: #4f4fd6;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

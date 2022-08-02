@@ -1,8 +1,8 @@
 import styles from './Hotel.module.css';
-import React from 'react';
 import hotelImg from '../../../assets/images/hotel.jpg';
+import PropTypes from 'prop-types';
 
-function Hotel() {
+function Hotel(props) {
     return (
         <div className={styles.hotel}>
             <div className={styles.flexContainer}>
@@ -14,26 +14,28 @@ function Hotel() {
                     />
                 </div>
                 <div className={styles.hotelInfoContainer}>
-                    <p className={styles.title}>Pensjonat</p>
-                    <span className={styles.badge}>Warszawa</span>
+                    <p className={styles.title}>{props.name}</p>
+                    <span className={styles.badge}>{props.city}</span>
                 </div>
                 <div className={styles.hotelInfoContainer}>
-                    <p className={styles.rate}>Ocena: 8.3</p>
+                    <p className={styles.rate}>Ocena: {props.rating}</p>
                     <a className={`${styles.button} button`} href="#">
                         Pokaż
                     </a>
                 </div>
             </div>
             <div className={styles.hotelDescContainer}>
-                <p className={styles.desc}>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Eaque fugit ratione cumque a rem, eum nulla odit voluptates,
-                    deleniti labore sapiente nobis voluptatem voluptate sed eos
-                    nisi distinctio sint dolorem.
-                </p>
+                <p className={styles.desc}>{props.description}</p>
             </div>
         </div>
     );
 }
+
+Hotel.propTypes = {
+    name: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+};
 
 export default Hotel;
