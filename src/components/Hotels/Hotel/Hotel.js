@@ -19,7 +19,10 @@ function Hotel(props) {
                 </div>
                 <div className={styles.hotelInfoContainer}>
                     <p className={styles.rate}>Ocena: {props.rating}</p>
-                    <a className={`${styles.button} button`} href="#">
+                    <a
+                        className={`${styles.button} button-${props.theme} `}
+                        href="#"
+                    >
                         Pokaż
                     </a>
                 </div>

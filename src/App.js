@@ -4,6 +4,10 @@ import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
 import Hotels from './components/Hotels/Hotels';
 import { Component } from 'react';
+import SearchBar from './components/UI/SearchBar/SearchBar';
+import Layout from './components/Layout/Layout';
+import Footer from './components/Footer/Footer';
+import ThemeButton from './components/UI/ThemeButton/ThemeButton';
 
 class App extends Component {
     hotels = [
@@ -30,27 +34,46 @@ class App extends Component {
     state = {
         hotels: [],
         loading: true,
+        theme: 'primary',
     };
 
     searchHandler = (term) => {
-        console.log(term);
         const hotels = [...this.hotels].filter((hotel) =>
             hotel.name.toLowerCase().includes(term.trim().toLowerCase())
         );
         this.setState({ hotels });
     };
 
+    changeTheme = () => {
+        const newTheme = this.state.theme === 'primary' ? 'blue' : 'primary';
+        this.setState({ theme: newTheme });
+    };
+
     render() {
         return (
-            <div className="App">
-                <Header onSearch={this.searchHandler} />
-                <Menu />
-                {this.state.loading ? (
-                    <Throbber />
-                ) : (
-                    <Hotels hotels={this.state.hotels} />
-                )}
-            </div>
+            <Layout
+                header={
+                    <Header>
+                        <SearchBar
+                            onSearch={this.searchHandler}
+                            theme={this.state.theme}
+                        />
+                        <ThemeButton onChange={this.changeTheme} />
+                    </Header>
+                }
+                menu={<Menu theme={this.state.theme} />}
+                content={
+                    this.state.loading ? (
+                        <Throbber theme={this.state.theme} />
+                    ) : (
+                        <Hotels
+                            hotels={this.state.hotels}
+                            theme={this.state.theme}
+                        />
+                    )
+                }
+                footer={<Footer theme={this.state.theme} />}
+            />
         );
     }
 

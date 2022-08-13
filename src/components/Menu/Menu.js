@@ -1,11 +1,13 @@
 import styles from './Menu.module.css';
 
-function Menu() {
+function Menu(props) {
     return (
-        <nav className={`${styles.menuContainer} container`}>
+        <nav className={styles.menuContainer}>
             <ul className={styles.menu}>
                 <li className={styles.menuItem}>
-                    <a href="#">Home</a>
+                    <a href="#" className={`text-${props.theme}`}>
+                        Home
+                    </a>
                 </li>
             </ul>
         </nav>
