@@ -1,5 +1,10 @@
 import styles from './Throbber.module.css';
+import ThemeContext from '../../context/ThemeContext';
 
 export default function Throbber(props) {
-    return <div className={`${styles.throbber} circle-${props.theme}`}></div>;
+    <ThemeContext>
+        {(value) => (
+            <div className={`${styles.throbber} circle-${value}`}></div>
+        )}
+    </ThemeContext>;
 }

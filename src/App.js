@@ -8,8 +8,11 @@ import SearchBar from './components/UI/SearchBar/SearchBar';
 import Layout from './components/Layout/Layout';
 import Footer from './components/Footer/Footer';
 import ThemeButton from './components/UI/ThemeButton/ThemeButton';
+import ThemeContext from './context/ThemeContext';
 
 class App extends Component {
+    static contextType = ThemeContext;
+
     hotels = [
         {
             id: 1,
@@ -34,7 +37,6 @@ class App extends Component {
     state = {
         hotels: [],
         loading: true,
-        theme: 'primary',
     };
 
     searchHandler = (term) => {
@@ -45,35 +47,31 @@ class App extends Component {
     };
 
     changeTheme = () => {
-        const newTheme = this.state.theme === 'primary' ? 'blue' : 'primary';
+        const newTheme = this.context === 'primary' ? 'blue' : 'primary';
         this.setState({ theme: newTheme });
     };
 
     render() {
         return (
-            <Layout
-                header={
-                    <Header>
-                        <SearchBar
-                            onSearch={this.searchHandler}
-                            theme={this.state.theme}
-                        />
-                        <ThemeButton onChange={this.changeTheme} />
-                    </Header>
-                }
-                menu={<Menu theme={this.state.theme} />}
-                content={
-                    this.state.loading ? (
-                        <Throbber theme={this.state.theme} />
-                    ) : (
-                        <Hotels
-                            hotels={this.state.hotels}
-                            theme={this.state.theme}
-                        />
-                    )
-                }
-                footer={<Footer theme={this.state.theme} />}
-            />
+            <ThemeContext.Provider value="primary">
+                <Layout
+                    header={
+                        <Header>
+                            <SearchBar onSearch={this.searchHandler} />
+                            <ThemeButton onChange={this.changeTheme} />
+                        </Header>
+                    }
+                    menu={<Menu />}
+                    content={
+                        this.state.loading ? (
+                            <Throbber />
+                        ) : (
+                            <Hotels hotels={this.state.hotels} />
+                        )
+                    }
+                    footer={<Footer />}
+                />
+            </ThemeContext.Provider>
         );
     }
 
