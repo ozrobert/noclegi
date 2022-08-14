@@ -37,6 +37,7 @@ class App extends Component {
     state = {
         hotels: [],
         loading: true,
+        theme: 'primary',
     };
 
     searchHandler = (term) => {
@@ -47,29 +48,35 @@ class App extends Component {
     };
 
     changeTheme = () => {
-        const newTheme = this.context === 'primary' ? 'blue' : 'primary';
+        const newTheme = this.state.theme === 'primary' ? 'blue' : 'primary';
         this.setState({ theme: newTheme });
     };
 
     render() {
+        const header = (
+            <Header>
+                <SearchBar onSearch={this.searchHandler} />
+                <ThemeButton onChange={this.changeTheme} />
+            </Header>
+        );
+
+        const menu = <Menu />;
+
+        const content = this.state.loading ? (
+            <Throbber />
+        ) : (
+            <Hotels hotels={this.state.hotels} />
+        );
+
+        const footer = <Footer />;
+
         return (
-            <ThemeContext.Provider value="primary">
+            <ThemeContext.Provider value={this.state.theme}>
                 <Layout
-                    header={
-                        <Header>
-                            <SearchBar onSearch={this.searchHandler} />
-                            <ThemeButton onChange={this.changeTheme} />
-                        </Header>
-                    }
-                    menu={<Menu />}
-                    content={
-                        this.state.loading ? (
-                            <Throbber />
-                        ) : (
-                            <Hotels hotels={this.state.hotels} />
-                        )
-                    }
-                    footer={<Footer />}
+                    header={header}
+                    menu={menu}
+                    content={content}
+                    footer={footer}
                 />
             </ThemeContext.Provider>
         );

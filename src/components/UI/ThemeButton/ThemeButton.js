@@ -3,6 +3,7 @@ const buttonStyles = {
     backgroundColor: 'transparent',
     padding: '10px',
     border: 0,
+    cursor: 'pointer',
 };
 
 export default function ThemeButton(props) {

@@ -20,7 +20,7 @@ function Hotel(props) {
                 </div>
                 <div className={styles.hotelInfoContainer}>
                     <p className={styles.rate}>Ocena: {props.rating}</p>
-                    <ThemeContext>
+                    <ThemeContext.Consumer>
                         {(value) => (
                             <a
                                 className={`${styles.button} button-${value} `}
@@ -29,7 +29,7 @@ function Hotel(props) {
                                 Pokaż
                             </a>
                         )}
-                    </ThemeContext>
+                    </ThemeContext.Consumer>
                 </div>
             </div>
             <div className={styles.hotelDescContainer}>
