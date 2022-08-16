@@ -6,8 +6,16 @@
 .menu {
     list-style-type: none;
     text-align: left;
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 4px;
 }
 
 .menuItem {
     display: inline-block;
+    margin-right: 20px;
+}
+
+.menuItem a {
+    color: #6c757d;
 }
