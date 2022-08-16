@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import ThemeContext from '../../../context/ThemeContext';
+
 const buttonStyles = {
     color: '#fff',
     backgroundColor: 'transparent',
@@ -6,9 +9,10 @@ const buttonStyles = {
     cursor: 'pointer',
 };
 
-export default function ThemeButton(props) {
+export default function ThemeButton() {
+    const theme = useContext(ThemeContext);
     return (
-        <button style={buttonStyles} onClick={props.onChange}>
+        <button style={buttonStyles} onClick={theme.changeTheme}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

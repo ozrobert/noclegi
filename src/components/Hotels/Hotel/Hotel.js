@@ -2,8 +2,11 @@ import styles from './Hotel.module.css';
 import hotelImg from '../../../assets/images/hotel.jpg';
 import PropTypes from 'prop-types';
 import ThemeContext from '../../../context/ThemeContext';
+import { useContext } from 'react';
 
 function Hotel(props) {
+    const theme = useContext(ThemeContext);
+
     return (
         <div className={styles.hotel}>
             <div className={styles.flexContainer}>
@@ -20,16 +23,12 @@ function Hotel(props) {
                 </div>
                 <div className={styles.hotelInfoContainer}>
                     <p className={styles.rate}>Ocena: {props.rating}</p>
-                    <ThemeContext.Consumer>
-                        {(value) => (
-                            <a
-                                className={`${styles.button} button-${value} `}
-                                href="#"
-                            >
-                                Pokaż
-                            </a>
-                        )}
-                    </ThemeContext.Consumer>
+                    <a
+                        className={`${styles.button} button-${theme.color} `}
+                        href="#"
+                    >
+                        Pokaż
+                    </a>
                 </div>
             </div>
             <div className={styles.hotelDescContainer}>

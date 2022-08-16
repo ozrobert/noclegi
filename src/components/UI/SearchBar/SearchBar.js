@@ -1,5 +1,5 @@
 import styles from './SearchBar.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ThemeContext from '../../../context/ThemeContext';
 import PropTypes from 'prop-types';
 
@@ -9,6 +9,7 @@ const propTypes = {
 
 function SearchBar(props) {
     const [term, setTerm] = useState('');
+    const theme = useContext(ThemeContext);
 
     return (
         <div>
@@ -20,16 +21,13 @@ function SearchBar(props) {
                 onChange={(e) => setTerm(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && props.onSearch(term)}
             />
-            <ThemeContext.Consumer>
-                {(value) => (
-                    <button
-                        className={`${styles.button} button-${value}`}
-                        onClick={() => props.onSearch(term)}
-                    >
-                        Szukaj
-                    </button>
-                )}
-            </ThemeContext.Consumer>
+
+            <button
+                className={`${styles.button} button-${theme.color}`}
+                onClick={() => props.onSearch(term)}
+            >
+                Szukaj
+            </button>
         </div>
     );
 }

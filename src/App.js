@@ -56,7 +56,7 @@ class App extends Component {
         const header = (
             <Header>
                 <SearchBar onSearch={this.searchHandler} />
-                <ThemeButton onChange={this.changeTheme} />
+                <ThemeButton />
             </Header>
         );
 
@@ -71,7 +71,12 @@ class App extends Component {
         const footer = <Footer />;
 
         return (
-            <ThemeContext.Provider value={this.state.theme}>
+            <ThemeContext.Provider
+                value={{
+                    color: this.state.theme,
+                    changeTheme: this.changeTheme,
+                }}
+            >
                 <Layout
                     header={header}
                     menu={menu}
