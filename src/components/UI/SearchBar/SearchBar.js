@@ -1,5 +1,5 @@
 import styles from './SearchBar.module.css';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import ThemeContext from '../../../context/ThemeContext';
 import PropTypes from 'prop-types';
 
@@ -8,12 +8,18 @@ const propTypes = {
 };
 
 function SearchBar(props) {
-    const [term, setTerm] = useState('');
     const theme = useContext(ThemeContext);
+    const [term, setTerm] = useState('');
+    const inputRef = useRef();
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
 
     return (
         <div>
             <input
+                ref={inputRef}
                 className={`${styles.input} input-text`}
                 type="text"
                 placeholder="Wyszukaj..."

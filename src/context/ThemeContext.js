@@ -5,4 +5,6 @@ const ThemeContext = createContext({
     changeTheme: () => {},
 });
 
+ThemeContext.displayName = 'ThemeContext';
+
 export default ThemeContext;

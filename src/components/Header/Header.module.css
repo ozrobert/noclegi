@@ -1,11 +1,19 @@
 .header {
     height: 250px;
+    overflow: hidden;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.headerImage {
     background-color: #cdcdcd;
     background-image: url(../../assets/images/header.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
+    position: absolute;
+    inset: -10%;
+    z-index: -1;
 }

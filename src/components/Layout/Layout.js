@@ -1,3 +1,5 @@
+import withClass from '../HOC/withClass';
+
 const Layout = (props) => (
     <>
         <div>{props.header}</div>
@@ -7,4 +9,4 @@ const Layout = (props) => (
     </>
 );
 
-export default Layout;
+export default withClass(Layout, 'layout');
