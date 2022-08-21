@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import './App.scss';
 import Throbber from './components/UI/Throbber';
 import Header from './components/Header/Header';
@@ -32,36 +32,64 @@ const backendHotels = [
     },
 ];
 
-function App() {
-    // *** INNY SPOSÓB ZAPISU STANU ***
-    // const [sate, setState] = useState({
-    //     hotels: [],
-    //     loading: true,
-    //     theme: 'primary',
-    //     isAuthenticated: false,
-    // });
+const ACTIONS = {
+    LOGIN: 'login',
+    LOGOUT: 'logout',
+    CHANGE_THEME: 'change-theme',
+    GET_HOTELS: 'get-hotels',
+    SET_LOADING: 'set-loading',
+};
 
-    const [hotels, setHotels] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [theme, setTheme] = useState('primary');
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'login':
+            return {
+                ...state,
+                isAuthenticated: true,
+            };
+        case 'logout':
+            return {
+                ...state,
+                isAuthenticated: false,
+            };
+        case 'change-theme':
+            return {
+                ...state,
+                theme: state.theme === 'primary' ? 'blue' : 'primary',
+            };
+        case 'get-hotels':
+            return {
+                ...state,
+                hotels: action.hotels ? action.hotels : backendHotels,
+            };
+        case 'set-loading':
+            return { ...state, loading: action.loading };
+        default:
+            throw new Error(`Action ${action.type} doesn't exist!`);
+    }
+};
+
+function App() {
+    const initialState = {
+        isAuthenticated: false,
+        hotels: [],
+        loading: true,
+        theme: 'primary',
+    };
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const searchHandler = (term) => {
         const newHotels = [...backendHotels].filter((hotel) =>
             hotel.name.toLowerCase().includes(term.trim().toLowerCase())
         );
-        setHotels(newHotels);
-    };
-
-    const changeTheme = () => {
-        setTheme(theme === 'primary' ? 'blue' : 'primary');
+        dispatch({ type: ACTIONS.GET_HOTELS, hotels: newHotels });
     };
 
     useEffect(() => {
         // symulacja połączenia z backendem (opóźnienie otrzymania danych)
         setTimeout(() => {
-            setHotels(backendHotels);
-            setLoading(false);
+            dispatch({ type: ACTIONS.GET_HOTELS });
+            dispatch({ type: ACTIONS.SET_LOADING, loading: false });
         }, 1000);
     }, []);
 
@@ -72,21 +100,25 @@ function App() {
         </Header>
     );
     const menu = <Menu />;
-    const content = loading ? <Throbber /> : <Hotels hotels={hotels} />;
+    const content = state.loading ? (
+        <Throbber />
+    ) : (
+        <Hotels hotels={state.hotels} />
+    );
     const footer = <Footer />;
 
     return (
         <AuthContext.Provider
             value={{
-                isAuthenticated,
-                login: () => setIsAuthenticated(true),
-                logout: () => setIsAuthenticated(false),
+                isAuthenticated: state.isAuthenticated,
+                login: () => dispatch({ type: ACTIONS.LOGIN }),
+                logout: () => dispatch({ type: ACTIONS.LOGOUT }),
             }}
         >
             <ThemeContext.Provider
                 value={{
-                    color: theme,
-                    changeTheme,
+                    color: state.theme,
+                    changeTheme: () => dispatch({ type: ACTIONS.CHANGE_THEME }),
                 }}
             >
                 <Layout
