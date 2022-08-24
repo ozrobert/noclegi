@@ -32,6 +32,13 @@ const backendHotels = [
     },
 ];
 
+const initialState = {
+    isAuthenticated: false,
+    hotels: [],
+    loading: true,
+    theme: 'primary',
+};
+
 const ACTIONS = {
     LOGIN: 'login',
     LOGOUT: 'logout',
@@ -43,20 +50,12 @@ const ACTIONS = {
 const reducer = (state, action) => {
     switch (action.type) {
         case 'login':
-            return {
-                ...state,
-                isAuthenticated: true,
-            };
+            return { ...state, isAuthenticated: true };
         case 'logout':
-            return {
-                ...state,
-                isAuthenticated: false,
-            };
+            return { ...state, isAuthenticated: false };
         case 'change-theme':
-            return {
-                ...state,
-                theme: state.theme === 'primary' ? 'blue' : 'primary',
-            };
+            const theme = state.theme === 'primary' ? 'blue' : 'primary';
+            return { ...state, theme };
         case 'get-hotels':
             return {
                 ...state,
@@ -70,12 +69,6 @@ const reducer = (state, action) => {
 };
 
 function App() {
-    const initialState = {
-        isAuthenticated: false,
-        hotels: [],
-        loading: true,
-        theme: 'primary',
-    };
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const searchHandler = (term) => {
