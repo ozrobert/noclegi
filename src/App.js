@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer';
 import ThemeButton from './components/UI/ThemeButton/ThemeButton';
 import ThemeContext from './context/ThemeContext';
 import AuthContext from './context/AuthContext';
+import BestHotel from './components/Hotels/BestHotel/BestHotel';
 
 const backendHotels = [
     {
@@ -71,6 +72,18 @@ const reducer = (state, action) => {
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    const getBestHotel = () => {
+        if (state.hotels.length < 2) {
+            return null;
+        } else {
+            return state.hotels.reduce((prevHotel, currentHotel) => {
+                return prevHotel.rating > currentHotel.rating
+                    ? prevHotel
+                    : currentHotel;
+            });
+        }
+    };
+
     const searchHandler = (term) => {
         const newHotels = [...backendHotels].filter((hotel) =>
             hotel.name.toLowerCase().includes(term.trim().toLowerCase())
@@ -96,7 +109,10 @@ function App() {
     const content = state.loading ? (
         <Throbber />
     ) : (
-        <Hotels hotels={state.hotels} />
+        <>
+            <BestHotel getHotel={getBestHotel} />
+            <Hotels hotels={state.hotels} />
+        </>
     );
     const footer = <Footer />;
 

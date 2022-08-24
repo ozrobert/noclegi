@@ -1,0 +1,29 @@
+.bestOfferContainer {
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px 20px 20px;
+    background-color: rgb(255, 247, 203);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.title {
+    color: rgb(253, 210, 17);
+    margin-bottom: 0.5rem;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.75);
+    font-size: 2rem;
+}
+
+.offerInfo {
+    color: #333;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}

@@ -71,11 +71,20 @@ p {
     font-size: 1.2rem;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
     cursor: pointer;
-    background-color: blue;
+    background-color: rgb(75, 75, 226);
 }
 .text-blue {
-    color: blue;
+    color: rgb(75, 75, 226);
 }
 .circle-blue {
-    border-top-color: blue;
+    border-top-color: rgb(75, 75, 226);
+}
+
+.button-light {
+    padding: 4px 20px;
+    background-color: rgb(199, 155, 34);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
 }
