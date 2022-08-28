@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import './App.scss';
 import Throbber from './components/UI/Throbber';
 import Header from './components/Header/Header';
@@ -11,6 +11,7 @@ import ThemeButton from './components/UI/ThemeButton/ThemeButton';
 import ThemeContext from './context/ThemeContext';
 import AuthContext from './context/AuthContext';
 import BestHotel from './components/Hotels/BestHotel/BestHotel';
+import InspiringQuote from './components/InspiringQuote/InspiringQuote';
 
 const backendHotels = [
     {
@@ -72,17 +73,20 @@ const reducer = (state, action) => {
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const getBestHotel = () => {
-        if (state.hotels.length < 2) {
-            return null;
-        } else {
-            return state.hotels.reduce((prevHotel, currentHotel) => {
-                return prevHotel.rating > currentHotel.rating
-                    ? prevHotel
-                    : currentHotel;
-            });
-        }
-    };
+    const getBestHotel = useCallback(
+        (options) => {
+            if (state.hotels.length < options.minHotels) {
+                return null;
+            } else {
+                return state.hotels.reduce((prevHotel, currentHotel) => {
+                    return prevHotel.rating > currentHotel.rating
+                        ? prevHotel
+                        : currentHotel;
+                });
+            }
+        },
+        [state.hotels]
+    );
 
     const searchHandler = (term) => {
         const newHotels = [...backendHotels].filter((hotel) =>
@@ -101,6 +105,7 @@ function App() {
 
     const header = (
         <Header>
+            <InspiringQuote />
             <SearchBar onSearch={searchHandler} />
             <ThemeButton />
         </Header>
