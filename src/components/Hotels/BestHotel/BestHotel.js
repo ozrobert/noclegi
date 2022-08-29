@@ -1,8 +1,29 @@
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import styles from './BestHotel.module.css';
 
 const BestHotel = (props) => {
-    const hotel = props.getHotel({ minHotels: 2 });
+    const endTime = dayjs().add(23, 'minute').add(34, 'second');
 
+    const [time, setTime] = useState('');
+
+    useEffect(() => {
+        const countdownInterval = setInterval(() => {
+            const leftTime = endTime.diff(dayjs()) / 1000;
+            const minutes = Math.floor(leftTime / 60);
+            const seconds = Math.floor(leftTime % 60);
+
+            const timeToDisplay = `${minutes} minut i ${seconds} sekund`;
+
+            setTime(timeToDisplay);
+        }, 1000);
+
+        return () => {
+            clearInterval(countdownInterval);
+        };
+    }, []);
+
+    const hotel = props.getHotel();
     if (!hotel) return null;
 
     return (
@@ -19,6 +40,7 @@ const BestHotel = (props) => {
                     Pokaż
                 </a>
             </div>
+            <p>Do końca oferty pozostało: {time}</p>
         </div>
     );
 };

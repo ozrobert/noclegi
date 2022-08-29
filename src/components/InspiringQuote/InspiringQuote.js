@@ -14,6 +14,7 @@ const styles = {
     color: '#fff',
     fontStyle: 'italic',
     fontSize: '1.1rem',
+    zIndex: -1,
 };
 function InspiringQuote(props) {
     const [quote, setQuote] = useState('Wczytywanie cytatu...');

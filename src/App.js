@@ -73,20 +73,17 @@ const reducer = (state, action) => {
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const getBestHotel = useCallback(
-        (options) => {
-            if (state.hotels.length < options.minHotels) {
-                return null;
-            } else {
-                return state.hotels.reduce((prevHotel, currentHotel) => {
-                    return prevHotel.rating > currentHotel.rating
-                        ? prevHotel
-                        : currentHotel;
-                });
-            }
-        },
-        [state.hotels]
-    );
+    const getBestHotel = useCallback(() => {
+        if (state.hotels.length < 2) {
+            return null;
+        } else {
+            return state.hotels.reduce((prevHotel, currentHotel) => {
+                return prevHotel.rating > currentHotel.rating
+                    ? prevHotel
+                    : currentHotel;
+            });
+        }
+    }, [state.hotels]);
 
     const searchHandler = (term) => {
         const newHotels = [...backendHotels].filter((hotel) =>
@@ -115,7 +112,7 @@ function App() {
         <Throbber />
     ) : (
         <>
-            <BestHotel getHotel={getBestHotel} />
+            {getBestHotel() ? <BestHotel getHotel={getBestHotel} /> : null}
             <Hotels hotels={state.hotels} />
         </>
     );
