@@ -3,9 +3,11 @@ import hotelImg from '../../../assets/images/hotel.jpg';
 import PropTypes from 'prop-types';
 import ThemeContext from '../../../context/ThemeContext';
 import { useContext } from 'react';
+import useAuth from '../../../hooks/useAuth';
 
 function Hotel(props) {
     const theme = useContext(ThemeContext);
+    const [auth] = useAuth();
 
     return (
         <div className={styles.hotel}>
@@ -34,6 +36,12 @@ function Hotel(props) {
             <div className={styles.hotelDescContainer}>
                 <p className={styles.desc}>{props.description}</p>
             </div>
+
+            {auth ? (
+                <p>Wolnych pokoi: 3</p>
+            ) : (
+                <p> Musisz się zalogować, aby sprawdzić wolne pokoje.</p>
+            )}
         </div>
     );
 }
