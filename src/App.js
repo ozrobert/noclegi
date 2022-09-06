@@ -12,6 +12,8 @@ import ThemeContext from './context/ThemeContext';
 import AuthContext from './context/AuthContext';
 import BestHotel from './components/Hotels/BestHotel/BestHotel';
 import InspiringQuote from './components/InspiringQuote/InspiringQuote';
+import LastViewedHotel from './components/Hotels/LastViewedHotel/LastViewedHotel';
+import useStateStorage from './hooks/useStateStorage';
 
 const backendHotels = [
     {
@@ -72,6 +74,10 @@ const reducer = (state, action) => {
 
 function App() {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [lastViewedHotel, setLastViewedHotel] = useStateStorage(
+        'last-viewed-hotel',
+        null
+    );
 
     const getBestHotel = useCallback(() => {
         if (state.hotels.length < 2) {
@@ -84,6 +90,12 @@ function App() {
             });
         }
     }, [state.hotels]);
+
+    const openHotel = (hotel) => {
+        setLastViewedHotel(hotel);
+    };
+
+    const removeLastViewedHotel = () => setLastViewedHotel(null);
 
     const searchHandler = (term) => {
         const newHotels = [...backendHotels].filter((hotel) =>
@@ -112,8 +124,14 @@ function App() {
         <Throbber />
     ) : (
         <>
+            {lastViewedHotel ? (
+                <LastViewedHotel
+                    onRemove={removeLastViewedHotel}
+                    {...lastViewedHotel}
+                />
+            ) : null}
             {getBestHotel() ? <BestHotel getHotel={getBestHotel} /> : null}
-            <Hotels hotels={state.hotels} />
+            <Hotels hotels={state.hotels} onOpen={openHotel} />
         </>
     );
     const footer = <Footer />;

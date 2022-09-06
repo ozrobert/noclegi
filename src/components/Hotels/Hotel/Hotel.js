@@ -9,6 +9,11 @@ function Hotel(props) {
     const theme = useContext(ThemeContext);
     const [auth] = useAuth();
 
+    const clickHandler = (e) => {
+        e.preventDefault();
+        props.onOpen(props);
+    };
+
     return (
         <div className={styles.hotel}>
             <div className={styles.flexContainer}>
@@ -26,6 +31,7 @@ function Hotel(props) {
                 <div className={styles.hotelInfoContainer}>
                     <p className={styles.rate}>Ocena: {props.rating}</p>
                     <a
+                        onClick={clickHandler}
                         className={`${styles.button} button-${theme.color} `}
                         href="#"
                     >
