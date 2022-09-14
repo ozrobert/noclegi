@@ -14,6 +14,7 @@ import BestHotel from './components/Hotels/BestHotel/BestHotel';
 import InspiringQuote from './components/InspiringQuote/InspiringQuote';
 import LastViewedHotel from './components/Hotels/LastViewedHotel/LastViewedHotel';
 import useStateStorage from './hooks/useStateStorage';
+import useWebsiteTitle from './hooks/useWebsiteTitle';
 
 const backendHotels = [
     {
@@ -78,6 +79,7 @@ function App() {
         'last-viewed-hotel',
         null
     );
+    useWebsiteTitle('Strona główna');
 
     const getBestHotel = useCallback(() => {
         if (state.hotels.length < 2) {
